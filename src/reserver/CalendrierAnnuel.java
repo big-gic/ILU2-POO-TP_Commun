@@ -1,9 +1,9 @@
-package control;
+package reserver;
 
-public class ControlCalendrierAnnuel {
+public class CalendrierAnnuel {
 	private Mois[] calendrier;
 	
-	public ControlCalendrierAnnuel() {
+	public CalendrierAnnuel() {
 		calendrier = new Mois[12];
 		calendrier[0] = new Mois("Janvier",31);
 		calendrier[1] = new Mois("Février",28);
@@ -20,15 +20,12 @@ public class ControlCalendrierAnnuel {
 	}
 	
 	public boolean estLibre(int jour, int mois) {
-		if (calendrier[mois].estLibre(jour)) {
-			return false;
-		}
-		return true;
+		return calendrier[mois-1].estLibre(jour-1);
 	}
 		
 	public boolean reserver(int jour, int mois) {
 		try{
-			calendrier[mois].reserver(jour);
+			calendrier[mois-1].reserver(jour-1);
 		} catch (IllegalStateException e) {
 			return false;
 		}
@@ -49,7 +46,7 @@ public class ControlCalendrierAnnuel {
 		}
 		
 		public boolean estLibre(int i) {
-			return jour[i];
+			return !jour[i];
 		}
 		
 		public void reserver(int i) {
